@@ -33,11 +33,14 @@ const ProductForm = (props) => {
 };
 
 ProductForm.propTypes = {
-  title: PropTypes.string.isRequired,
   currentColor: PropTypes.string.isRequired,
-  color: PropTypes.array.isRequired,
+  setCurrentColor: PropTypes.func.isRequired,
   currentSize: PropTypes.string.isRequired,
+  setCurrentSize: PropTypes.func.isRequired,
   sizes: PropTypes.array.isRequired,
+  color: PropTypes.array.isRequired,
+  getPrice: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default ProductForm;
