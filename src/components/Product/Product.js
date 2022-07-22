@@ -8,25 +8,21 @@ const Product = (props) => {
 
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
-  const [currentPrice, setCurrentPrice] = useState(props.basePrice);
   const [additionalPrice, setAdditionalPrice] = useState('');
 
 
-  const getPrice = (price) => {
-    return setAdditionalPrice(price);
-  };
+  const getPrice = (price) => setAdditionalPrice(price);
 
-  useMemo(() => {
-    return setCurrentPrice(props.basePrice + additionalPrice);
-  }, [props.basePrice, additionalPrice]);
 
+  const calculatedPrice = useMemo(() => props.basePrice + additionalPrice,
+   [props.basePrice, additionalPrice]);
 
   const handleClick = (props) => {
     return console.log(
       `++++++++Summary
         =======
         name: ${props.title}
-        price: ${currentPrice}
+        price: ${calculatedPrice}
         size: ${currentSize}
         color: ${currentColor}`
     );
@@ -34,11 +30,11 @@ const Product = (props) => {
 
   return (
     <article className={styles.product}>
-      <ProductImage name={props.name} currentColor={currentColor} />
+      <ProductImage name={props.name} title={props.title} currentColor={currentColor} />
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {currentPrice}$</span>
+          <span className={styles.price}>Price: {calculatedPrice}$</span>
         </header>
         <ProductForm
           currentSize={currentSize}
@@ -50,8 +46,7 @@ const Product = (props) => {
           color={props.colors}
           handleClick={handleClick}
           title={props.title}
-          currentPrice={currentPrice}
-          setCurrentPrice={setCurrentPrice}
+          setCurrentPrice={calculatedPrice}
         />
       </div>
     </article>
